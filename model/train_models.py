@@ -29,7 +29,7 @@ def load_and_preprocess_data():
     print("Loading mushroom dataset...")
     
     # Load data from CSV file
-    df = pd.read_csv('mushroom/mushrooms.csv')
+    df = pd.read_csv('mushrooms.csv')
     
     print(f"Dataset shape: {df.shape}")
     print(f"Number of samples: {len(df)}")
