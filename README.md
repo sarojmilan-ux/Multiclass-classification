@@ -242,7 +242,7 @@ This project is for educational purposes as part of an academic assignment.
 
 ---
 
-**Author**: [Your Name]  
+**Author**: SAROJ MILAN M  
 **Course**: Machine Learning  
 **Institution**: BITS Pilani  
-**Date**: January 2026
+**Date**: 12 feb 2026
