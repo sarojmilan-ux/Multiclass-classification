@@ -107,9 +107,7 @@ project-folder/
 │   ├── model_results.csv          # Comparison metrics
 │   └── test_data.csv              # Test dataset for deployment
 │
-└── mushroom/                       # Original dataset
-    ├── agaricus-lepiota.data
-    └── agaricus-lepiota.names
+└── mushrooms.csv                       # Original dataset
 ```
 
 ## Installation & Setup

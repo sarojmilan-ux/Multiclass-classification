@@ -83,6 +83,19 @@ uploaded_file = st.sidebar.file_uploader(
     help="Upload a CSV file with mushroom features"
 )
 
+# In app.py, this code works in deployment:
+if os.path.exists("model/test_data.csv"):
+    test_df = pd.read_csv("model/test_data.csv")
+    csv_data = test_df.to_csv(index=False).encode('utf-8')
+    
+    st.sidebar.download_button(
+        label="📥 Download Sample Test Data",
+        data=csv_data,
+        file_name="mushroom_test_data.csv",
+        mime="text/csv"
+    )
+
+
 st.sidebar.markdown("---")
 st.sidebar.info("""
 **Instructions:**
