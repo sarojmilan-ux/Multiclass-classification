@@ -52,14 +52,15 @@ The dataset contains 8,124 mushroom samples with 22 categorical features describ
 
 ### Comparison Table - Model Performance Metrics
 
-| ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
-|--------------|----------|-----|-----------|--------|-----|-----|
-| Logistic Regression | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
-| Decision Tree | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
-| kNN | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
-| Naive Bayes | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
-| Random Forest (Ensemble) | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
-| XGBoost (Ensemble) | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX | 0.XXXX |
+| ML Model Name            | Accuracy    | AUC         | Precision   | Recall      | F1          | MCC         |
+| ------------------------ | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Logistic Regression      | 0.955076923 | 0.982118534 | 0.955138405 | 0.955076923 | 0.955063799 | 0.910074658 |
+| Decision Tree            | 1           | 1           | 1           | 1           | 1           | 1           |
+| kNN                      | 0.996923077 | 0.999987866 | 0.996930272 | 0.996923077 | 0.996923273 | 0.993845649 |
+| Naive Bayes              | 0.812923077 | 0.897307087 | 0.829276874 | 0.812923077 | 0.809555481 | 0.639886374 |
+| Random Forest (Ensemble) | 1           | 1           | 1           | 1           | 1           | 1           |
+| XGBoost (Ensemble)       | 1           | 1           | 1           | 1           | 1           | 1           |
+
 
 *Note: Run `python model/train_models.py` to generate actual metrics*
 
