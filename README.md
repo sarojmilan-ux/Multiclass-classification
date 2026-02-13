@@ -76,11 +76,16 @@ The dataset contains 8,124 mushroom samples with 22 categorical features describ
 | XGBoost (Ensemble)       | Also achieved perfect metrics (100% accuracy, 1.0 MCC, 1.0 AUC) through sequential boosting of 100 trees. The gradient boosting approach iteratively corrected prediction errors, resulting in flawless classification. Slightly more complex than Random Forest but equally effective on this dataset.                                                                       |
 
 ### General Observations:
-- **Ensemble methods** (Random Forest and XGBoost) are expected to outperform single models due to their ability to combine multiple weak learners
-- The **mushroom dataset is well-structured** with strong feature-target relationships, so most models should achieve high accuracy (>90%)
-- **Odor** is likely to be the most important feature based on domain knowledge (certain odors strongly indicate poisonous mushrooms)
-- **Tree-based models** (Decision Tree, Random Forest, XGBoost) should perform best as they naturally handle categorical data
-- **Evaluation metrics** like Precision and Recall are crucial here - we want to minimize False Positives (predicting poisonous as edible) as it could be fatal
+Tree-based and ensemble models (Decision Tree, Random Forest, XGBoost) all achieved perfect scores, confirming the dataset has deterministic patterns ideal for tree structures
+
+Naive Bayes underperformed significantly (19% lower accuracy than Logistic Regression), proving feature independence assumptions don't hold
+
+kNN's near-perfect performance (99.7%) validates that mushrooms with similar features share the same edibility class
+
+The 4.5% gap between Logistic Regression (95.5%) and tree models (100%) reveals that linear boundaries cannot fully separate the classes
+
+For safety-critical deployment, ensemble methods are recommended due to their perfect precision and recall, minimizing fatal misclassification risks
+
 
 ## Project Structure
 
