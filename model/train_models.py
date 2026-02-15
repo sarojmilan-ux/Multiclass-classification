@@ -57,7 +57,7 @@ def load_and_preprocess_data():
     print(f"Edible (1): {sum(y==1)} ({sum(y==1)/len(y)*100:.2f}%)")
     print(f"Poisonous (0): {sum(y==0)} ({sum(y==0)/len(y)*100:.2f}%)")
     
-    return X, y, le_target
+    return X, y, le_target, le_dict
 
 def calculate_metrics(y_true, y_pred, y_pred_proba=None):
     """Calculate all required evaluation metrics"""
@@ -186,7 +186,7 @@ def main():
     print("="*60)
     
     # Load and preprocess data
-    X, y, le_target = load_and_preprocess_data()
+    X, y, le_target, le_dict = load_and_preprocess_data()
     
     # Split data
     print("\nSplitting data into train (80%) and test (20%)...")
@@ -208,6 +208,11 @@ def main():
     
     # Save all models
     save_models(models_dict)
+    
+    # Save encoders for Streamlit app
+    encoders = {'target': le_target, 'features': le_dict}
+    joblib.dump(encoders, 'model/label_encoders.pkl')
+    print("✓ Label encoders saved to model/label_encoders.pkl")
     
     # Save test data for Streamlit app
     test_data = pd.concat([X_test, y_test], axis=1)

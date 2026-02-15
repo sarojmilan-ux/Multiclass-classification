@@ -113,23 +113,56 @@ def load_model(model_name):
         st.error(f"❌ Model file not found: {model_path}")
         return None
 
-def encode_data(df, has_target=True):
-    """Encode categorical features to numeric values"""
+def load_encoders():
+    """Load saved label encoders"""
+    encoder_path = 'model/label_encoders.pkl'
+    if os.path.exists(encoder_path):
+        return joblib.load(encoder_path)
+    else:
+        st.error(f"❌ Encoder file not found: {encoder_path}. Please run train_models.py first.")
+        return None
+
+def encode_data(df, encoders, has_target=True):
+    """Encode categorical features using saved encoders"""
+    if encoders is None:
+        return None
+        
     df_encoded = df.copy()
+    le_target = encoders['target']
+    le_dict = encoders['features']
+    
+    # Check if data is already encoded (all numeric)
+    def is_numeric_data(df_check):
+        """Check if dataframe is already encoded (all numeric)"""
+        try:
+            for col in df_check.columns:
+                pd.to_numeric(df_check[col])
+            return True
+        except:
+            return False
+    
+    # If data is already encoded, return as is
+    if is_numeric_data(df_encoded):
+        st.info("ℹ️ Data appears to be already encoded (numeric format). Using as is.")
+        return df_encoded
+    
+    # Otherwise, encode the categorical data
+    st.info("ℹ️ Encoding categorical data using saved encoders...")
     
     # Determine which columns to encode
     if has_target and 'class' in df_encoded.columns:
-        # Encode target variable
-        le_target = LabelEncoder()
-        df_encoded['class'] = le_target.fit_transform(df_encoded['class'].astype(str))
+        # Encode target variable using saved encoder
+        df_encoded['class'] = le_target.transform(df_encoded['class'].astype(str))
         feature_cols = [col for col in df_encoded.columns if col != 'class']
     else:
         feature_cols = df_encoded.columns
     
-    # Encode all feature columns
+    # Encode all feature columns using saved encoders
     for col in feature_cols:
-        le = LabelEncoder()
-        df_encoded[col] = le.fit_transform(df_encoded[col].astype(str))
+        if col in le_dict:
+            df_encoded[col] = le_dict[col].transform(df_encoded[col].astype(str))
+        else:
+            st.warning(f"⚠️ Column '{col}' not found in saved encoders. Skipping.")
     
     return df_encoded
 
@@ -213,8 +246,15 @@ if uploaded_file is not None:
         with st.expander("📄 View Data Preview (Raw)"):
             st.dataframe(df_raw.head(10))
         
+        # Load encoders
+        encoders = load_encoders()
+        if encoders is None:
+            st.stop()
+        
         # Encode the data
-        df = encode_data(df_raw, has_target='class' in df_raw.columns)
+        df = encode_data(df_raw, encoders, has_target='class' in df_raw.columns)
+        if df is None:
+            st.stop()
         
         # Check if 'class' column exists
         if 'class' in df.columns:
