@@ -101,6 +101,7 @@ project-folder/
 │   ├── logistic_regression_model.pkl
 │   ├── decision_tree_model.pkl
 │   ├── knn_model.pkl
+|   ├── label_encoders.pkl
 │   ├── naive_bayes_model.pkl
 │   ├── random_forest_model.pkl
 │   ├── xgboost_model.pkl
